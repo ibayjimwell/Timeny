@@ -81,12 +81,14 @@
       },
       async fetchData() {
         try {
-          const response = await axios.get(`http://localhost:3000/?name=${this.name}&birthday=${this.birthday}`);
+          const response = await axios.get(`http://localhost:3000/api?name=${this.name}&birthday=${this.birthday}`);
           this.data = response.data;
         } catch (error) {
             console.error(error);
         } finally {
-            this.loading = false;
+            if (this.data) {
+                this.loading = false;
+            }
         }
       }
     }
