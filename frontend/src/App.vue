@@ -81,7 +81,7 @@
       },
       async fetchData() {
         try {
-          const response = await axios.get(`/api?name=${this.name}&birthday=${this.birthday}`);
+          const response = await axios.get(`https://timeny.vercel.app/api?name=${this.name}&birthday=${this.birthday}`);
           this.data = response.data;
         } catch (error) {
             console.error(error);
