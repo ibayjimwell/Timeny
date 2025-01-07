@@ -6,7 +6,7 @@
   </div>
   <div v-else>
     <section>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1 sm:gap-2 lg:gap-4 p-14">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1 sm:gap-2 lg:gap-4 p-14 sm:p-4">
         <div>
           <AgeCard :age="data.Age"></AgeCard>
         </div>
