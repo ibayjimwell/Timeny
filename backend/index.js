@@ -3,8 +3,37 @@ const cors = require('cors');
 const path = require('path');
 const app = express();
 
-app.use(express.static(path.join(__dirname, '../frontend/dist')));
 app.use(cors());
+
+app.get('/api', (req, res) => {
+
+    let name = req.query.name;
+    let birthday = req.query.birthday;
+
+    // Ensure the birthday is a valid number
+    if (isNaN(Number(birthday))) {
+        return res.status(400).json({ error: "Invalid birthday timestamp" });
+    }
+
+    res.json({
+        'Name': name || "Unknown",
+        'bBrthday':  getBirthday(birthday),
+        'Today': getBirthday(new Date()),
+        'Age': getAge(birthday),
+        'Next Birthday in Days': getDaysUntilNextBirthday(birthday),
+        'Leap Year Birthday': isLeapYear(birthday) ? 'Yes' : 'No',
+        'Zodiac Sign': getZodiacSign(birthday),
+        'Chinese Zodiac Sign': getChineseZodiacSign(birthday),
+        'Remaining Life': getLifeRemainingPercentage(birthday),
+        'Remaining Years': getLifeRemainingYears(birthday),
+        'Remaining Months': getLifeRemainingMonths(birthday),
+        'Remaining Days': getLifeRemainingDays(birthday),
+        'Days Since Birth': getDaysSinceBirth(birthday),
+        'Months Since Birth': getMonthsSinceBirth(birthday),
+        'Years Since Birth': getYearsSinceBirth(birthday)
+    });
+
+});
 
 function getBirthday(timestamp) {
 
@@ -232,39 +261,15 @@ function getYearsSinceBirth(timestamp) {
     return yearsDifference;
 }
 
-app.get('/api', (req, res) => {
 
-    let name = req.query.name;
-    let birthday = req.query.birthday;
-
-    // Ensure the birthday is a valid number
-    if (isNaN(Number(birthday))) {
-        return res.status(400).json({ error: "Invalid birthday timestamp" });
-    }
-
-    res.json({
-        'name': name || "Unknown",
-        'birthday':  getBirthday(birthday),
-        'today': getBirthday(new Date()),
-        'age': getAge(birthday),
-        'Next Birthday in Days': getDaysUntilNextBirthday(birthday),
-        'Leap Year Birthday': isLeapYear(birthday) ? 'Yes' : 'No',
-        'Zodiac Sign': getZodiacSign(birthday),
-        'Chinese Zodiac Sign': getChineseZodiacSign(birthday),
-        'Remaining Life': getLifeRemainingPercentage(birthday),
-        'Remaining Years': getLifeRemainingYears(birthday),
-        'Remaining Months': getLifeRemainingMonths(birthday),
-        'Remaining Days': getLifeRemainingDays(birthday),
-        'Days Since Birth': getDaysSinceBirth(birthday),
-        'Months Since Birth': getMonthsSinceBirth(birthday),
-        'Years Since Birth': getYearsSinceBirth(birthday)
-    });
-
-});
 
 // const port = 3000;
 // app.listen(port, () => {
 //     console.log(`listening on http://localhost:${port}/`);
 // });
 
+// Serve static files after API routes
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+// Export the app for deployment
 module.exports = app;
