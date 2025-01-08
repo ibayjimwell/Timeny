@@ -1,26 +1,26 @@
 <template>
 
   <!-- MAIN DASHBOARD -->
-  <div v-if="loading" className="flex justify-center h-screen pt-20">
-    <PulseLoader :color="'#2563eb'"></PulseLoader>
-  </div>
-  <div v-else>
-    <section>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1 sm:gap-2 lg:gap-4 p-14 sm:p-4">
-        <div>
-          <AgeCard :age="data.Age"></AgeCard>
-        </div>
-        <div class="col-span-2"></div>
-        <div>
-          <ProgressCard title="Remaining life" :percentage="data['Remaining Life']"></ProgressCard>
-        </div>
-        <div v-for="(item, index) in Object.entries(data)">
-          <NormalCard :label="item[0]" :text="item[1]"></NormalCard>
-        </div>
+<div v-if="loading" class="flex justify-center h-screen pt-20">
+  <PulseLoader :color="'#2563eb'"></PulseLoader>
+</div>
+<div v-else>
+  <section>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 md:p-14">
+      <div>
+        <AgeCard :age="data.Age"></AgeCard>
       </div>
-    </section>
-    <FixedButton @click="isSetup = false" text="New"></FixedButton>
-  </div>
+      <div class="col-span-1 md:col-span-2"></div>
+      <div>
+        <ProgressCard title="Remaining life" :percentage="data['Remaining Life']"></ProgressCard>
+      </div>
+      <div v-for="(item, index) in Object.entries(data)" :key="index" class="col-span-1">
+        <NormalCard :label="item[0]" :text="item[1]"></NormalCard>
+      </div>
+    </div>
+  </section>
+  <FixedButton @click="isSetup = false" text="New"></FixedButton>
+</div>
   
 
   <!-- MODAL -->
