@@ -1,4 +1,5 @@
 <template>
+    <label htmlFor="name" class="block text-sm font-medium mb-2">Birthday</label>
     <input 
     type="date" 
     id="birthday" 
