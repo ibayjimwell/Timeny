@@ -1,3 +1,55 @@
+<script>
+  import NameInput from '@/components/NameInput.vue';
+  import Button from '@/components/Button.vue';
+  import DatePicker from '@/components/DatePicker.vue';
+  import AgeCard from '@/components/AgeCard.vue';
+  import ProgressCard from '@/components/ProgressCard.vue';
+  import NormalCard from '@/components/NormalCard.vue';
+  import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
+  import FixedButton from '@/components/FixedButton.vue';
+  import axios from 'axios';
+
+  export default {
+    components: {
+      NameInput,
+      Button,
+      DatePicker,
+      AgeCard,
+      ProgressCard,
+      NormalCard,
+      PulseLoader,
+      FixedButton
+    },
+    data() {
+      return {
+        data: {},
+        name: null,
+        birthday: null,
+        isSetup: false,
+        loading: true
+      }
+    },
+    methods: {
+      handleSubmit() {
+        this.isSetup = true;
+        this.fetchData();
+      },
+      async fetchData() {
+        try {
+          const response = await axios.get(`/api/?name=${this.name}&birthday=${this.birthday}`);
+          this.data = response.data;
+        } catch (error) {
+            console.error(error);
+        } finally {
+            if (this.data) {
+                this.loading = false;
+            }
+        }
+      }
+    }
+  }
+</script>
+
 <template>
 
   <!-- MAIN DASHBOARD -->
@@ -42,55 +94,3 @@
   </div>
 
 </template>
-
-<script>
-  import NameInput from '@/components/NameInput.vue';
-  import Button from '@/components/Button.vue';
-  import DatePicker from '@/components/DatePicker.vue';
-  import AgeCard from '@/components/AgeCard.vue';
-  import ProgressCard from '@/components/ProgressCard.vue';
-  import NormalCard from '@/components/NormalCard.vue';
-  import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
-  import FixedButton from '@/components/FixedButton.vue';
-  import axios from 'axios';
-
-  export default {
-    components: {
-      NameInput,
-      Button,
-      DatePicker,
-      AgeCard,
-      ProgressCard,
-      NormalCard,
-      PulseLoader,
-      FixedButton
-    },
-    data() {
-      return {
-        data: {},
-        name: null,
-        birthday: null,
-        isSetup: false,
-        loading: true
-      }
-    },
-    methods: {
-      handleSubmit() {
-        this.isSetup = true;
-        this.fetchData();
-      },
-      async fetchData() {
-        try {
-          const response = await axios.get(`https://timeny.vercel.app/api/?name=${this.name}&birthday=${this.birthday}`);
-          this.data = response.data;
-        } catch (error) {
-            console.error(error);
-        } finally {
-            if (this.data) {
-                this.loading = false;
-            }
-        }
-      }
-    }
-  }
-</script>

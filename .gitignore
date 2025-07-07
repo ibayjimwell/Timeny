@@ -9,9 +9,7 @@ lerna-debug.log*
 
 node_modules
 backend/node_modules
-fontend/node_modules
 .vscode
-fontend/.vscode
 .DS_Store
 coverage
 *.local
@@ -30,3 +28,4 @@ coverage
 *.sw?
 
 *.tsbuildinfo
+venv

@@ -2,10 +2,10 @@
   "version": 2,
   "builds": [
     { "src": "frontend/dist/**/*", "use": "@vercel/static" },
-    { "src": "backend/index.js", "use": "@vercel/node" }
+    { "src": "app.py", "use": "@vercel/python" }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "/backend/index.js" },
+    { "src": "/api/(.*)", "dest": "app.py" },
     { "src": "/(.*)", "dest": "/frontend/dist/$1" }
   ]
 }
